@@ -1,4 +1,5 @@
 # memoai
-shitty framework made by me for myself (but you can use it)
+a neural network framework made by me
+not really the best but gets the job done for me
 # features
 nothing tbf, you cant even change the activation function lol
