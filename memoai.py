@@ -38,7 +38,7 @@ class NeuralNetwork():
         m = DESIRED.size
         DESIRED = np.eye(self.size[len(self.size)-1])[DESIRED].T
         sizeLen = len(self.size)-1
-        self.cache["dZ2"] = self.cache["A" + str(sizeLen)] - DESIRED
+        self.cache["dZ" + str(sizeLen)] = self.cache["A" + str(sizeLen)] - DESIRED
         dBs.append(1 / m * np.sum(self.cache["dZ" + str(sizeLen)],axis=1,keepdims=True))
         dWs.append(1 / m * self.cache["dZ" + str(sizeLen)].dot(self.cache["A" + str(sizeLen-1)].T))
         for i in reversed(range(1,sizeLen)):
