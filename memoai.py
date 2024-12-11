@@ -36,7 +36,7 @@ class NeuralNetwork():
         dWs = []
         dBs = []
         m = DESIRED.size
-        DESIRED = np.eye(10)[DESIRED].T
+        DESIRED = np.eye(self.size[len(self.size)-1])[DESIRED].T
         sizeLen = len(self.size)-1
         self.cache["dZ2"] = self.cache["A" + str(sizeLen)] - DESIRED
         dBs.append(1 / m * np.sum(self.cache["dZ" + str(sizeLen)],axis=1,keepdims=True))
