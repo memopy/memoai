@@ -23,14 +23,17 @@ class NeuralNetwork():
 
     def feedforward(self,A0):
         self.cache["A0"] = A0
-        for i in range(1,len(self.size)):
+        for i in range(1,len(self.size)-1):
             iStr = str(i)
             self.cache["Z" + iStr] = self.params["W" + iStr].dot(self.cache["A" + str(i - 1)]) + self.params["B" + iStr]
             self.cache["A" + iStr] = self.sigmoid(self.cache["Z" + iStr])
+        iStr = str(len(self.size)-1)
+        self.cache["Z" + iStr] = self.params["W" + iStr].dot(self.cache["A" + str(len(self.size) - 2)]) + self.params["B" + iStr]
+        self.cache["A" + iStr] = self.softmax(self.cache["Z" + iStr])
 
     @staticmethod
-    def getpred(A2):
-        return np.argmax(A2,0)
+    def getpred(x):
+        return np.argmax(x,0)
 
     def backprop(self,DESIRED):
         dWs = []
@@ -45,7 +48,7 @@ class NeuralNetwork():
             dZ = self.params["W" + str(i+1)].T.dot(self.cache["dZ" + str(i+1)]) * self.sigmoid(self.cache["Z" + str(i)],True)
             dWs.append(1 / m * dZ.dot(self.cache["A" + str(i-1)].T))
             dBs.append(1 / m * np.sum(dZ,axis=1,keepdims=True))
-            self.cache["dZ" + str(i)] = dZ
+            self.cache["dZ" + str(i)] = dZ        
         dWs.reverse()
         dBs.reverse()
         return dWs,dBs
