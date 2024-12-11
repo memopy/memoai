@@ -61,6 +61,6 @@ class NeuralNetwork():
             self.feedforward(A0)
             dWs,dBs = self.backprop(DESIRED)
             self.updateparams(dWs,dBs,lr)
-            if i+1 % 50 == 0:
+            if i % 50 == 0:
                 print(i,"iters done.")
         print(f"Time elapsed:{time.time()-start}")
